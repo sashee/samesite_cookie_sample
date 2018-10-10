@@ -27,6 +27,11 @@ normalCookie is SET
 strictCookie is not set
 laxCookie is SET
 =======localhost========
+GET request from localhost to localhost
+normalCookie is SET
+strictCookie is SET
+laxCookie is SET
+=======localhost========
 redirect from localhost
 normalCookie is SET
 strictCookie is SET

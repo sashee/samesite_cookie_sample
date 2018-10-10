@@ -36,7 +36,13 @@ const logCookies = (req) => {
 	});
 	app.get("/get", (req, res) => {
 		logs.push("=======localhost========")
-		logs.push("GET request from 127.0.0.1 to localhost");
+		logs.push(`GET request from 127.0.0.1 to localhost`);
+		logCookies(req);
+		res.send("OK")
+	});
+	app.get("/get2", (req, res) => {
+		logs.push("=======localhost========")
+		logs.push(`GET request from localhost to localhost`);
 		logCookies(req);
 		res.send("OK")
 	});
@@ -44,7 +50,14 @@ const logCookies = (req) => {
 		logs.push("=======localhost========")
 		logs.push("redirect from 127.0.0.1 to localhost");
 		logCookies(req);
-		res.send(doAndGo(null, "//localhost:3000/step3"));
+		res.send(doAndGo(`
+			(async () => {
+				await fetch("//localhost:3000/get2", {method: "GET", mode: "no-cors"});
+
+				window.location = nextUrl;
+			})()
+		`,
+		"//localhost:3000/step3"));
 	});
 	app.get('/step3', (req, res) => {
 		logs.push("=======localhost========")
